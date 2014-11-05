@@ -1,0 +1,55 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:		odoo-homo-server
+# Required-Start:	postgresql $remote_fs $syslog
+# Required-Stop:	postgresql $remote_fs $syslog
+# Should-Start:		$network
+# Should-Stop:		$network
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	Enterprise Resource Management software
+# Description:		Open ERP is a complete ERP and CRM software.
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+ODOOPATH=/opt/odoo/homo
+NAME=odoo-homo-server
+DESC=odoo-homo-server
+ODOOOPTS="--unaccent"
+USER=odoo_homo
+COMMAND="sudo -u $USER odooenv"
+
+set -e
+
+cd $ODOOPATH
+case "${1}" in
+	start)
+		echo -n "Starting ${DESC}: "
+		$COMMAND start -- $ODOOOPTS &> /dev/null
+		echo "${NAME}."
+		;;
+
+	stop)
+		echo -n "Stopping ${DESC}: "
+		$COMMAND stop &> /dev/null
+		echo "${NAME}."
+		;;
+
+	restart|force-reload)
+		echo -n "Restarting ${DESC}: "
+
+		$COMMAND stop &> /dev/null
+		sleep 1
+		$COMMAND start -- $ODOOOPTS &> /dev/null
+
+		echo "${NAME}."
+		;;
+
+	*)
+		N=/etc/init.d/${NAME}
+		echo "Usage: ${NAME} {start|stop|restart|force-reload}" >&2
+		exit 1
+		;;
+esac
+
+exit 0

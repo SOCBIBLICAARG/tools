@@ -1,0 +1,93 @@
+sources:
+    dir: '{root}/sources'
+    branch: &default_branch homo
+    repos:
+        odoo:
+            url: https://github.com/SOCBIBLICAARG/odoo.git
+            branch: *default_branch
+            method: setup
+        factorlibre-addons:
+            url: https://github.com/SOCBIBLICAARG/factorlibre-addons.git
+            branch: *default_branch
+        price_import_csv:
+            url: https://github.com/SOCBIBLICAARG/price_import_csv.git
+            branch: *default_branch
+        sale_report:
+            url: https://github.com/SOCBIBLICAARG/sale_report.git
+            branch: *default_branch
+        sba_sales:
+            url: https://github.com/SOCBIBLICAARG/sba_sales.git
+            branch: *default_branch
+        odoo_inventory_report:
+            url: https://github.com/SOCBIBLICAARG/odoo_inventory_report.git
+            branch: *default_branch
+        l10n_ar_bank:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_bank.git
+            branch: *default_branch
+        l10n_ar_base_vat:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_base_vat.git
+            branch: *default_branch
+        l10n_ar_chart_generic:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_chart_generic.git
+            branch: *default_branch
+        l10n_ar_invoice:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_invoice.git
+            branch: *default_branch
+        l10n_ar_partner_title:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_partner_title.git
+            branch: *default_branch
+        l10n_ar_states:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_states.git
+            branch: *default_branch
+        l10n_ar_vat_reports:
+            url: https://github.com/SOCBIBLICAARG/l10n_ar_vat_reports.git
+            branch: *default_branch
+        odoo_inventory_report:
+            url: https://github.com/SOCBIBLICAARG/odoo_inventory_report.git
+            branch: *default_branch
+        report_latex:
+            url: https://github.com/SOCBIBLICAARG/odoo-report-latex.git 
+            branch: *default_branch
+test:
+    sba:
+        addons:
+            #fl_additional_discount
+            check_credit_limit
+            price_import_csv
+            sale_report
+            sba_sales
+            sale_report
+            so_validation
+        logfile: '{root}/log/test_sba.log'
+addons:
+    config: '__openerp__.py'
+reports:
+    dir: '{root}/reports'
+snapshots:
+    dir: '{root}/snapshots'
+server:
+    config: '{root}/etc/odoo-server.conf'
+logging:
+    version: 1
+    formatters:
+        simple:
+            format: '%(asctime)s:%(name)s:%(levelname)s:%(message)s'
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: ERROR
+            formatter: simple
+            stream: ext://sys.stdout
+        file:
+            class: logging.FileHandler
+            level: DEBUG
+            formatter: simple
+            filename: '{root}/log/odooenv.log'
+    loggers:
+        odooenv:
+            level: DEBUG
+            handlers: [console, file]
+            propagate: no
+    root:
+        level: DEBUG
+        handlers: [console]
