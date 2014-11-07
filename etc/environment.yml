@@ -48,6 +48,9 @@ sources:
         report_latex:
             url: https://github.com/SOCBIBLICAARG/odoo-report-latex.git 
             branch: *default_branch
+        ingadhoc:
+            url: https://github.com/SOCBIBLICAARG/ingadhoc-odoo-addons.git          
+            branch: *default_branch
 test:
     sba:
         addons:
